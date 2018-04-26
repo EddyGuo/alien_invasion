@@ -13,8 +13,8 @@ Add Anaconda to PATH environment variable.
   Location: username\venv\pythonlearning  
   Base Interpreter: username\Anaconda3\python.exe
 - Tick the following options:  
-- [x] Inherit global site-packages  
-- [x] make available to all projects
+  - [x] Inherit global site-packages  
+  - [x] make available to all projects
 
 ### Install Markdown Plugins
 - File->Setting->Plugins->Install Jetbrains Plugings
