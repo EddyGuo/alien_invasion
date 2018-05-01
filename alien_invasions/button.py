@@ -7,6 +7,7 @@ class Button:
         """初始化按钮属性"""
         self.screen = screen
         self.screen_rect = screen.get_rect()
+        self.ai_settings = ai_settings
 
         # 设置按钮尺寸和其他属性
         self.width, self.height = 200, 50
@@ -23,7 +24,7 @@ class Button:
 
     def prep_msg(self, msg):
         """将msg渲染为图像，并使其在按钮上居中"""
-        self.msg_image = self.font.render(msg, True, self.text_color, self.button_color)
+        self.msg_image = self.font.render(msg, True, self.text_color)
         self.msg_image_rect = self.msg_image.get_rect()
         self.msg_image_rect.center = self.rect.center
 
