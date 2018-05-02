@@ -1,5 +1,5 @@
 # Author: EddyGuo
-# Version: 0.1
+# Version: 0.2
 # Update: 2018/5/2
 # Environment: Windows 7&10
 #              PyCharm 2018.1.1 (Community Edition)
