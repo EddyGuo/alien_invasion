@@ -1,15 +1,21 @@
 import pygame
+from pygame.sprite import Sprite
 
 
-class Ship:
+class Ship(Sprite):
 
-    def __init__(self, ai_settings, screen):
+    def __init__(self, ai_settings, screen, scale=1):
+        super(Ship, self).__init__()
         """初始化飞船位置"""
         self.screen = screen
         self.ai_settings = ai_settings
 
         # 加载飞船图像并获取其外接矩形
-        self.image = pygame.image.load('images/ship/NabooBomber_archigraphs.png')
+        self.image_load = pygame.image.load('images/ship/NabooBomber_archigraphs.png')
+        self.image_load_width, self.image_load_height = self.image_load.get_size()
+        # 改变飞机大小
+        self.image = pygame.transform.scale(self.image_load,
+                                            (int(self.image_load_width * scale), int(self.image_load_height * scale)))
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
@@ -36,6 +42,7 @@ class Ship:
 
     def blitme(self):
         """在指定位置绘制飞船"""
+        self.screen.blit(self.image, self.rect)
         self.screen.blit(self.image, self.rect)
 
     def center_ship(self):

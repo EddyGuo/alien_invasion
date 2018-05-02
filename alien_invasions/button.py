@@ -12,7 +12,7 @@ class Button:
         # 设置按钮尺寸和其他属性
         self.width, self.height = 200, 50
         self.button_color = (0, 89, 130)
-        self.text_color = (255, 255, 255)
+        self.text_color = ai_settings.font_color
         self.font = pygame.font.SysFont(None, 48)
 
         # 创建按钮的rect，并居中

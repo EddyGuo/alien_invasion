@@ -5,19 +5,20 @@ from alien_invasions.bullet import Bullet
 from alien_invasions.alien import Alien
 
 
-def check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets):
+def check_aliens_bottom(ai_settings, stats, screen, score_board, ship, aliens, bullets):
     """检测是否有外星人到达屏幕底端"""
     screen_rect = screen.get_rect()
     for alien in aliens:
         if alien.rect.bottom >= screen_rect.bottom:
-            ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
+            ship_hit(ai_settings, stats, screen, score_board, ship, aliens, bullets)
 
 
-def ship_hit(ai_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(ai_settings, stats, screen, score_board, ship, aliens, bullets):
     """响应飞船与外星人相撞"""
     if stats.ships_left > 0:
         # 将ships_left减1
         stats.ships_left -= 1
+        score_board.prep_ships_left()
 
         # 清空外星人和子弹
         aliens.empty()
@@ -96,6 +97,7 @@ def game_start(ai_settings, stats, screen, score_board, ship, aliens, bullets):
         score_board.prep_top_score()
         score_board.prep_score()
         score_board.prep_level()
+        score_board.prep_ships_left()
 
         # 清空外星人和子弹
         aliens.empty()
@@ -169,18 +171,17 @@ def check_bullet_alien_collisions(ai_settings, stats, screen, score_board, ship,
         create_fleet(ai_settings, screen, ship, aliens)
 
 
-def update_aliens(ai_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(ai_settings, stats, screen, score_board, ship, aliens, bullets):
     """更新外星人"""
     check_fleet_edges(ai_settings, aliens)
     aliens.update()
 
     # 飞船碰撞检测
     if pygame.sprite.spritecollideany(ship, aliens):
-        ship_hit(ai_settings, stats, screen, ship, aliens, bullets)
-        print("ship hit!!!")
+        ship_hit(ai_settings, stats, screen, score_board, ship, aliens, bullets)
 
     # 检测是否有外星人到达屏幕底端
-    check_aliens_bottom(ai_settings, stats, screen, ship, aliens, bullets)
+    check_aliens_bottom(ai_settings, stats, screen, score_board, ship, aliens, bullets)
 
 
 def fire_bullets(ai_settings, screen, ship, bullets):

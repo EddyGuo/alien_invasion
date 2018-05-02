@@ -1,4 +1,6 @@
 import pygame.font
+from pygame.sprite import Group
+from alien_invasions.ship import Ship
 
 
 class Scoreboard:
@@ -12,16 +14,16 @@ class Scoreboard:
         self.stats = stats
 
         # 得分信息字体
-        self.font_color = ai_settings.score_font_color
-        self.font_size = ai_settings.score_font_size
+        self.font_color = ai_settings.font_color
+        self.font_size = ai_settings.font_size
         self.font = pygame.font.SysFont(None, self.font_size)
-        self.level_font_color = ai_settings.level_font_color
-        self.level_font_size =  ai_settings.level_font_size
-        self.level_font = pygame.font.SysFont(None, self.level_font_size)
+        self.level_font = pygame.font.SysFont(None, self.font_size + 20)
 
         # 准备得分图像
         self.prep_top_score()
         self.prep_score()
+        # 剩余飞船
+        self.prep_ships_left()
         # 等级图像
         self.prep_level()
 
@@ -50,16 +52,27 @@ class Scoreboard:
     def prep_level(self):
         """等级"""
         level_str = "LEVEL: %s" % str(self.stats.level)
-        self.level_image = self.level_font.render(level_str, True, self.level_font_color)
+        self.level_image = self.level_font.render(level_str, True, self.font_color)
 
         # 将等级放在中上
         self.level_rect = self.level_image.get_rect()
         self.level_rect.centerx = self.screen_rect.centerx
         self.level_rect.top = self.screen_rect.top + 20
 
+    def prep_ships_left(self):
+        """剩余飞船"""
+        self.ships_left = Group()
+        for ship_number in range(self.stats.ships_left):
+            ship_left = Ship(self.ai_settings, self.screen, 0.5)
+            ship_left.rect.x = 20 + ship_number * (ship_left.rect.width + 5)
+            ship_left.rect.y = 20
+            self.ships_left.add(ship_left)
+
     def show_score(self):
+        """显示分数面板"""
         self.screen.blit(self.score_image, self.score_rect)
         self.screen.blit(self.top_score_image, self.top_score_rect)
         self.screen.blit(self.level_image, self.level_rect)
+        self.ships_left.draw(self.screen)
 
 
