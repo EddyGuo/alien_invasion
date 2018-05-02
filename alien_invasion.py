@@ -1,3 +1,10 @@
+# Author: EddyGuo
+# Version: 0.1
+# Update: 2018/5/2
+# Environment: Windows 7&10
+#              PyCharm 2018.1.1 (Community Edition)
+#              Anaconda3-5.1.0-Windows-x86_64
+#############################
 import pygame
 
 from alien_invasions.settings import Settings
