@@ -52,6 +52,9 @@ def check_keydown_events(event, ai_settings, stats, screen, score_board, ship, a
             fire_bullets(ai_settings, screen, ship, bullets)
 
     if event.key == pygame.K_ESCAPE:
+        # 保存最高分
+        file = open('data.txt', 'w', encoding='utf-8')
+        file.write(str(stats.top_score))
         sys.exit()
     elif event.key == pygame.K_RETURN:
         game_start(ai_settings, stats, screen, score_board, ship, aliens, bullets)

@@ -5,7 +5,8 @@ class GameStats():
         """初始化统计信息"""
         self.ai_settings = ai_settings
         self.game_active = False
-        self.top_score = 0
+        file = open('data.txt', 'r', encoding='utf-8')
+        self.top_score = int(file.read())
         self.reset_stats()
 
     def reset_stats(self):
