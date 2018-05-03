@@ -52,10 +52,7 @@ def check_keydown_events(event, ai_settings, stats, screen, score_board, ship, a
             fire_bullets(ai_settings, screen, ship, bullets)
 
     if event.key == pygame.K_ESCAPE:
-        # 保存最高分
-        with open('data.txt', 'w', encoding='utf-8') as data_file:
-            data_file.write(str(stats.top_score))
-        sys.exit()
+        check_exit(stats)
     elif event.key == pygame.K_RETURN:
         game_start(ai_settings, stats, screen, score_board, ship, aliens, bullets)
 
@@ -72,7 +69,7 @@ def check_events(ai_settings, stats, screen, score_board, ship, aliens, bullets,
     """响应按键和鼠标事件"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            sys.exit()
+            check_exit(stats)
         elif event.type == pygame.KEYDOWN:
             check_keydown_events(event, ai_settings, stats, screen, score_board, ship, aliens, bullets)
         elif event.type == pygame.KEYUP:
@@ -81,6 +78,14 @@ def check_events(ai_settings, stats, screen, score_board, ship, aliens, bullets,
             mouse_x, mouse_y = pygame.mouse.get_pos()
             check_play_button(ai_settings, stats, screen, score_board, ship, aliens, bullets,
                               play_button, mouse_x, mouse_y)
+
+
+def check_exit(stats):
+    """退出事件"""
+    # 保存最高分
+    with open('data.txt', 'w', encoding='utf-8') as data_file:
+        data_file.write(str(stats.top_score))
+    sys.exit()
 
 
 def check_play_button(ai_settings, stats, screen, score_board, ship, aliens, bullets, play_button, mouse_x, mouse_y):
